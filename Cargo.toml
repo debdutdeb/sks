@@ -1,0 +1,18 @@
+[package]
+name = "sks"
+version = "0.1.0"
+edition = "2024"
+
+[features]
+default = ["sqlcipher"]
+sqlcipher = ["dep:rusqlite"]
+
+[dependencies]
+zeroize = "1"
+thiserror = "2"
+rusqlite = { version = "*", optional = true, features = ["bundled-sqlcipher-vendored-openssl"] }
+zbus = "5.19.0"
+serde = { version = "1", features = ["derive"] }
+log = "0.4.34"
+log4rs = "1.4.0"
+
