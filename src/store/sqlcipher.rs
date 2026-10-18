@@ -9,15 +9,10 @@ pub struct SQLCipher<'a> {
     table_name: &'a str,
 }
 
-struct Item {
-    id: i32,
-    name: String,
-}
-
-use super::super::Secret as SecretVar;
+use super::super::secrets::SecretString;
 
 impl SQLCipher<'static> {
-    pub fn new(path: impl AsRef<Path>, passphrase: SecretVar) -> Result<Self, Error> {
+    pub fn new(path: impl AsRef<Path>, passphrase: SecretString) -> Result<Self, Error> {
         let conn = Connection::open(path)?;
         conn.pragma_update(None, "key", passphrase.as_str())?;
         conn.query_row("select count(*) from sqlite_master", [], |r| {
